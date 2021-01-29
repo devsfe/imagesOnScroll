@@ -7,7 +7,7 @@ let page = 1;
 
 // fetch & get api
 async function getImg() {
-    const res = await fetch(`https://picsum.photos/v2/list?page=${page}&limit=${limit}`);
+    const res = await fetch(`https://picsum.photos/v2/list?page=${page}&limit=${4}`);
 
     const data = await res.json();
 
@@ -22,10 +22,11 @@ function showLoader() {
         loader.classList.remove('active');
 
         setTimeout(() => {
-            
-        }, 300);
+            page++;
+            showImages();
+        }, 500);
 
-    }, 1000);
+    }, 1500);
 }
 
 
@@ -37,7 +38,7 @@ async function showImages() {
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('image-container')  
         imgContainer.innerHTML = 
-        `<img src="${image.download_url}" alt="" class="image">
+        `<img src="${image.download_url}" loading="lazy" class="image">
          <h3 class="image-author">${image.author}</h3>
         `;
         
